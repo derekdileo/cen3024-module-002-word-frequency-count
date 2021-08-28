@@ -41,8 +41,7 @@ public class TextAnalyzerFromFile {
 				// Create a string from current line
 				String line = sc.nextLine();
 
-				// Split string, ignoring all but letters of alphabet and apostrophe (to allow
-				// contractions)
+				// Split string, ignoring all but letters of alphabet and apostrophe (to allow contractions)
 				words = line.split("[^a-zA-Z’]+");
 
 				for (String word : words) {
@@ -59,7 +58,6 @@ public class TextAnalyzerFromFile {
 			fnfe.printStackTrace();
 			System.out.println(fnfe.getMessage());
 		}
-
 		return null;
 	}
 
@@ -85,9 +83,7 @@ public class TextAnalyzerFromFile {
 			else {
 				wordFrequency.put(words.get(i), 1);
 			}
-
 		}
-
 		return wordFrequency;
 	}
 
@@ -98,52 +94,54 @@ public class TextAnalyzerFromFile {
 		return wordFrequencyCounter(wordsArrayList);
 	}
 
-	// HashMap to hold all word/frequency (key/value) pairs prior to sorting by
-	// frequency (value)
-	public static HashMap<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
-
-	// ArrayList to hold all new Word objects created prior to sorting by frequency
-	// (value)
-	private static ArrayList<Word> wordsArrayList;
-
-	// Main method
-	public static void main(String[] args) throws IOException {
-
-		wordFrequencyHashMap = processTextInput();
-
-		wordsArrayList = new ArrayList<Word>();
-
-		wordsArrayList = processHashMap(wordFrequencyHashMap);
-
-		// Sort wordsArrayList by frequency
-		Collections.sort(wordsArrayList);
-		//Collections.reverse(wordsArrayList);
-
-		// Print after sort
-		System.out.println("\nSorted:");
-		System.out.println(wordsArrayList.toString());
-
-	}
-
 	// Method to parse HashMap key/value pairs and push to an ArrayList
 	private static ArrayList<Word> processHashMap(HashMap<String, Integer> hm) {
 
-		// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
+		// ArrayList to hold all new Word objects created prior to sorting by frequency
+		// (value)
 		ArrayList<Word> wordsUnsorted = new ArrayList<Word>();
 
-		for (@SuppressWarnings("rawtypes") Map.Entry entry : hm.entrySet()) {
+		for (@SuppressWarnings("rawtypes")
+		Map.Entry entry : hm.entrySet()) {
 
 			// Pull key/value pairs for each word in wordFrequencyComplete HashMap
 			String wordKey = entry.getKey().toString();
 			String wordValue = entry.getValue().toString();
 			int wordValueInt = Integer.parseInt(wordValue);
 
-			// Use pairs to create new instances of Word class 
+			// Use pairs to create new instances of Word class
 			// (which implements Comparable<Word>)
 			Word word = new Word(wordKey, wordValueInt);
 			wordsUnsorted.add(word);
-			
 		}
 		return wordsUnsorted;
+	}
+	
+	// HashMap to hold all word/frequency (key/value) pairs prior to sorting by frequency (value)
+	public static HashMap<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
+
+	// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
+	private static ArrayList<Word> wordsArrayList;
+
+	// Main method
+	public static void main(String[] args) throws IOException {
+
+		// Call getFileContents() and wordFrequencyCounter() methods
+		wordFrequencyHashMap = processTextInput();
+
+		wordsArrayList = new ArrayList<Word>();
+
+		// Parse HashMap key/value pairs and push to an ArrayList
+		wordsArrayList = processHashMap(wordFrequencyHashMap);
+
+		// Sort wordsArrayList by frequency
+		Collections.sort(wordsArrayList);
+
+		// Reverse for highest frequency first
+		Collections.reverse(wordsArrayList);
+
+		// Print after sort
+		System.out.println("\nSorted:");
+		System.out.println(wordsArrayList.toString());
 	}
 }
