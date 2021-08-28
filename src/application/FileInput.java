@@ -1,10 +1,14 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class FileInput {
 
@@ -19,6 +23,67 @@ public class FileInput {
 	public static HashMap<String, Integer> wordFrequencyComplete = new HashMap<String, Integer>();
 	
 
+	public static ArrayList<String> wordsList = new ArrayList<>();
+	
+	static Scanner sc;
+	
+	
+	// Method to split file input into array of Strings using File and Scanner
+	
+	public static ArrayList<String> getFileContents() {
+		
+		try {
+		
+		File file = new File(filepath);
+		
+		sc = new Scanner(file);
+		
+		String[] words = null;
+		
+		ArrayList<String> wordsList = new ArrayList<String>();
+			
+		/*
+		 * while (sc.hasNextLine()) {
+		 * 
+		 * String line = sc.nextLine();
+		 * 
+		 * // Split each line into String array by word boundary \b // This will avoid
+		 * including extra characters/punctuation
+		 * 
+		 * words = line.split("\\b"); wordsList.addAll(words);
+		 * 
+		 * //System.out.println(words);
+		 * 
+		 * }
+		 */
+		
+		
+		while (sc.hasNextLine()) {
+			String line = sc.nextLine();
+			words = line.split("[^a-zA-Z]+");
+			
+			for(String word : words) {
+				word.toString().toLowerCase();
+				wordsList.add(word);
+			}
+			
+			//words.toString().toLowerCase();
+		
+		}
+		System.out.println("wordsList.toString(): ");
+		System.out.println(wordsList.toString());
+		
+			return wordsList;
+			
+		} catch(FileNotFoundException fnfe) {
+			
+		}
+	
+		return null;
+	}
+	
+	
+	
 	// Method to split file input into array of Strings
 	public static String[] readFile() throws IOException {
 
@@ -39,26 +104,26 @@ public class FileInput {
 	}
 
 	// Method to process String array created by readFile()
-	public static HashMap<String, Integer> wordFrequencyCounter(String[] words) {
+	public static HashMap<String, Integer> wordFrequencyCounter(ArrayList<String> words) {
 		
 		// loop through every word in array
-		for (int i = 0; i < words.length; i++) {
+		for (int i = 0; i < words.size(); i++) {
 			
 			// If HashMap contains the key, increment the value
-			if (wordFrequency.containsKey(words[i])) {
+			if (wordFrequency.containsKey(words.get(i))) {
 				// Get the current word frequency count
-				int n = wordFrequency.get(words[i]);
+				int n = wordFrequency.get(words.get(i));
 				
 				// Increment and replace count
-				wordFrequency.put(words[i], ++n);
+				wordFrequency.put(words.get(i), ++n);
 			} 
 		
 			// Otherwise, place word in Hashmap, set count to 1
 			else {
-				wordFrequency.put(words[i], 1);
+				wordFrequency.put(words.get(i), 1);
 			}
 			
-			System.out.println("\nwordFreqyencyCounter() entry: " + i + " -  " + words[i].toString());
+			//System.out.println("\nwordFreqyencyCounter() entry: " + i + " -  " + words[i].toString());
 		
 			
 		}
@@ -67,25 +132,49 @@ public class FileInput {
 	} 
 	
 	
-	public static void processWordFrequencyCounter(HashMap<String, Integer> hashMap) throws IOException {
+	/*
+	 * public static HashMap<String, Integer> sortByValue(HashMap<String, Integer>
+	 * hashMap) {
+	 * 
+	 * // Create a list from elements of Hashmap List<Map.Entry<String, Integer> >
+	 * list = new LinkedList<Map.Entry<String, Integer> > (hashMap.entrySet());
+	 * 
+	 * // Sort the list Collections.sort(list, new Comparator<Map.Entry<String,
+	 * Integer> > () {
+	 * 
+	 * public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer,
+	 * V> o2) {
+	 * 
+	 * return (o1.getValue()).compareTo(o2.getValue()); }
+	 * 
+	 * @Override public int compare(Entry<String, Integer> o1, Entry<String,
+	 * Integer> o2) { // TODO Auto-generated method stub return 0; }
+	 * 
+	 * });
+	 */
 		
 		
-		
-		
-	}
+	/*
+	 * HashMap<String, Integer> tempHashMap = new LinkedHashMap<String, Integer>();
+	 * 
+	 * return tempHashMap; }
+	 */
 	
 	
 
 	public static void main(String[] args) throws IOException {
 		
-		String[] wordsArray = readFile();
 		
-		wordFrequencyComplete = wordFrequencyCounter(wordsArray);
+		ArrayList<String> wordsArrayList = getFileContents();
+		
+		wordFrequencyComplete = wordFrequencyCounter(wordsArrayList);
+		
+		//Collections.sort(wordFrequencyComplete);
 		
 		
-		for(Map.Entry entry: wordFrequencyComplete.entrySet()) {
-			System.out.println(entry.getKey() + " " + entry.getValue());
-		}
 		
+		  for(Map.Entry entry: wordFrequencyComplete.entrySet()) {
+		  System.out.println(entry.getKey() + " " + entry.getValue()); }
+		 
 	}
 }
