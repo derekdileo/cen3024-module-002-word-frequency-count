@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -131,18 +132,44 @@ public class FileInput {
 	
 	
 	// HashMap to hold all word/frequency (key/value) pairs prior to sorting by frequency (value)
-	public static HashMap<String, Integer> wordFrequencyComplete = new HashMap<String, Integer>();
+	public static HashMap<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
 
 	// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
-	public static ArrayList<Word> wordsUnsorted = new ArrayList<Word>();
+	private static ArrayList<Word> wordsUnsortedArrayList;
+
+	
 	
 	public static void main(String[] args) throws IOException {
 		
 		
-		wordFrequencyComplete = processTextInput();
+		wordFrequencyHashMap = processTextInput();
+		
+		wordsUnsortedArrayList = new ArrayList<Word>();
+		
+		wordsUnsortedArrayList = processHashMap(wordFrequencyHashMap);
+		
+		// Print before sort
+		System.out.println("\nUnsorted:");
+		System.out.println(wordsUnsortedArrayList.toString());
 		
 		
-		for(Map.Entry entry: wordFrequencyComplete.entrySet()) {
+		Collections.sort(wordsUnsortedArrayList);
+		
+		// Print after sort
+		System.out.println("\nSorted:");
+		System.out.println(wordsUnsortedArrayList.toString());
+		 
+	}
+
+
+	//public static ArrayList<Word> wordsUnsorted;
+
+	private static ArrayList<Word> processHashMap(HashMap<String, Integer> hm) {
+		
+		// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
+		ArrayList<Word> wordsUnsorted = new ArrayList<Word>();
+		
+		for(Map.Entry entry: hm.entrySet()) {
 			  
 			  // Pull key/value pairs for each word in wordFrequencyComplete HashMap
 			  String wordKey = entry.getKey().toString();
@@ -153,11 +180,10 @@ public class FileInput {
 			  Word word = new Word(wordKey, wordValueInt);
 			  
 			  wordsUnsorted.add(word);
-			  
-			  System.out.println("Key: " + wordKey + ", Value: " + wordValueInt); 
-			  
+			 
 		  }
-		 
+		
+		return wordsUnsorted;
 	}
 
 

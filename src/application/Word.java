@@ -35,4 +35,11 @@ public class Word implements Comparable<Word> {
 		return this.frequency - word.getValue();
 	}
 
+	@Override
+	public String toString() {
+		return "\nWord: " + word + "\t\tFrequency: " + frequency;
+	}
+	
+	
+
 }
