@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileInput {
@@ -141,7 +142,21 @@ public class FileInput {
 		wordFrequencyComplete = processTextInput();
 		
 		
-		  
+		for(Map.Entry entry: wordFrequencyComplete.entrySet()) {
+			  
+			  // Pull key/value pairs for each word in wordFrequencyComplete HashMap
+			  String wordKey = entry.getKey().toString();
+			  String wordValue = entry.getValue().toString();
+			  int wordValueInt = Integer.parseInt(wordValue);
+			  
+			  // Use pairs to create new instances of Word class (which implements Comparable<Word>) 
+			  Word word = new Word(wordKey, wordValueInt);
+			  
+			  wordsUnsorted.add(word);
+			  
+			  System.out.println("Key: " + wordKey + ", Value: " + wordValueInt); 
+			  
+		  }
 		 
 	}
 
