@@ -47,9 +47,10 @@ public class TextAnalyzerFromWeb {
 					// Split string, ignoring all but letters of alphabet and apostrophe (to allow contractions)
 					words = nohtml.split("[^a-zA-Z’]+");
 
+					// For each: set all characters to lower case and add to ArrayList<String> wordsList
 					for (String word : words) {
-						// Set all characters to lower case and add to ArrayList<String> wordsList
 						// Do not allow white blank white space (frequency = 30 and near top of list)
+						// Works when pulling text from file. Not sure why it's not working here!!
 						if (word.toString() != "" && word.toString() != " " && !word.toString().contains("mdash") && !word.toString().contains("	")) {
 							wordsList.add(word.toString().toLowerCase());
 						}
@@ -67,7 +68,6 @@ public class TextAnalyzerFromWeb {
 			System.out.println(ioe.getMessage());
 			ioe.printStackTrace();
 		}
-
 		return null;
 	}
 
@@ -123,7 +123,6 @@ public class TextAnalyzerFromWeb {
 			// (which implements Comparable<Word>)
 			Word word = new Word(wordKey, wordValueInt);
 			wordsUnsorted.add(word);
-
 		}
 		return wordsUnsorted;
 	}
@@ -139,20 +138,22 @@ public class TextAnalyzerFromWeb {
 	// Main method
 	public static void main(String[] args) throws IOException {
 
+		// Call getFileContents() and wordFrequencyCounter() methods
 		wordFrequencyHashMap = processTextInput();
 
 		wordsArrayList = new ArrayList<Word>();
 
+		// Parse HashMap key/value pairs and push to an ArrayList
 		wordsArrayList = processHashMap(wordFrequencyHashMap);
 
 		// Sort wordsArrayList by frequency
 		Collections.sort(wordsArrayList);
-		// Collections.reverse(wordsArrayList);
+		
+		// Reverse for highest frequency first
+		Collections.reverse(wordsArrayList);
 
 		// Print after sort
 		System.out.println("\nSorted:");
 		System.out.println(wordsArrayList.toString());
-
 	}
-
 }
