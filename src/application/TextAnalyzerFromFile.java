@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class FileInput {
+public class TextAnalyzerFromFile {
 
 	// Declare filepath
 	private static final String filepath = "/Users/derekdileo/Documents/Software Development/Workspaces/Java-Programming-For-Beginners/cen3024-module-002-word-frequency-count/src/application/poem.txt";
@@ -51,13 +51,8 @@ public class FileInput {
 					if (word.toString() != "") {
 					wordsList.add(word.toString().toLowerCase());
 					}
-					
 				}
-
 			}
-			// System.out.println("wordsList.toString(): ");
-			// System.out.println(wordsList.toString());
-
 			return wordsList;
 
 		} catch (FileNotFoundException fnfe) {
@@ -120,10 +115,6 @@ public class FileInput {
 
 		wordsArrayList = processHashMap(wordFrequencyHashMap);
 
-		// Print before sort
-		// System.out.println("\nUnsorted:");
-		// System.out.println(wordsArrayList.toString());
-
 		// Sort wordsArrayList by frequency
 		Collections.sort(wordsArrayList);
 		//Collections.reverse(wordsArrayList);
@@ -134,8 +125,7 @@ public class FileInput {
 
 	}
 
-	// public static ArrayList<Word> wordsUnsorted;
-
+	// Method to parse HashMap key/value pairs and push to an ArrayList
 	private static ArrayList<Word> processHashMap(HashMap<String, Integer> hm) {
 
 		// ArrayList to hold all new Word objects created prior to sorting by frequency (value)

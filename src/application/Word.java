@@ -30,6 +30,8 @@ public class Word implements Comparable<Word> {
 		this.frequency = value;
 	}
 
+	// Implemented Method that allows Word objects to be compared
+	// by frequency (value)
 	@Override
 	public int compareTo(Word word) {
 		return this.frequency - word.getValue();
@@ -39,7 +41,5 @@ public class Word implements Comparable<Word> {
 	public String toString() {
 		return "\nWord: " + word + "\t\tFrequency: " + frequency;
 	}
-	
-	
 
 }
