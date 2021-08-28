@@ -3,36 +3,36 @@ package application;
 public class Word implements Comparable<Word> {
 
 	// Local variables
-	private String key;
-	private int value;
+	private String word;
+	private int frequency;
 
 	// Constructor
 	public Word(String key, int value) {
 		super();
-		this.key = key;
-		this.value = value;
+		this.word = key;
+		this.frequency = value;
 	}
 	
 	// Getters and Setters
 	public String getKey() {
-		return key;
+		return word;
 	}
 
 	public void setKey(String key) {
-		this.key = key;
+		this.word = key;
 	}
 
 	public int getValue() {
-		return value;
+		return frequency;
 	}
 
 	public void setValue(int value) {
-		this.value = value;
+		this.frequency = value;
 	}
 
 	@Override
 	public int compareTo(Word word) {
-		return this.value - word.getValue();
+		return this.frequency - word.getValue();
 	}
 
 }

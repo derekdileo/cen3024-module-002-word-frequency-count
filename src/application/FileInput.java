@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class FileInput {
@@ -18,65 +17,53 @@ public class FileInput {
 	// Initialize local variables
 	private static BufferedReader buffer;
 
-	// Declare the HashMap
-	public static HashMap<String, Integer> wordFrequency = new HashMap<String, Integer>();
-	public static HashMap<String, Integer> wordFrequencyComplete = new HashMap<String, Integer>();
 	
-
+	// ArrayList to store individual words pulled from text file
 	public static ArrayList<String> wordsList = new ArrayList<>();
 	
+	// Scanner for text file input
 	static Scanner sc;
 	
 	
-	// Method to split file input into array of Strings using File and Scanner
-	
+	// Method to parse text file into ArrayList<String> using File and Scanner
 	public static ArrayList<String> getFileContents() {
 		
 		try {
 		
+		// Point to file location
 		File file = new File(filepath);
 		
+		// Initialize scanner for text file input
 		sc = new Scanner(file);
 		
+		// Initialize String array to hold strings from line.split()
+		// line.split("[^a-zA-Z]+") ignores all characters except alphabetical letters
 		String[] words = null;
 		
-		ArrayList<String> wordsList = new ArrayList<String>();
-			
-		/*
-		 * while (sc.hasNextLine()) {
-		 * 
-		 * String line = sc.nextLine();
-		 * 
-		 * // Split each line into String array by word boundary \b // This will avoid
-		 * including extra characters/punctuation
-		 * 
-		 * words = line.split("\\b"); wordsList.addAll(words);
-		 * 
-		 * //System.out.println(words);
-		 * 
-		 * }
-		 */
-		
-		
+		// Loop until end of poem
 		while (sc.hasNextLine()) {
+			
+			// Create a string from current line
 			String line = sc.nextLine();
+			
+			// Split string, ignoring all but letters of alphabet
 			words = line.split("[^a-zA-Z]+");
+
 			
 			for(String word : words) {
-				word.toString().toLowerCase();
-				wordsList.add(word);
+				// Set all characters to lower case and add to ArrayList<String> wordsList
+				wordsList.add(word.toString().toLowerCase());
 			}
-			
-			//words.toString().toLowerCase();
 		
 		}
-		System.out.println("wordsList.toString(): ");
-		System.out.println(wordsList.toString());
+		//System.out.println("wordsList.toString(): ");
+		//System.out.println(wordsList.toString());
 		
 			return wordsList;
 			
 		} catch(FileNotFoundException fnfe) {
-			
+			fnfe.printStackTrace();
+			System.out.println(fnfe.getMessage());
 		}
 	
 		return null;
@@ -103,6 +90,11 @@ public class FileInput {
 
 	}
 
+	
+	// Declare HashMap with word=key, frequency=value
+	public static HashMap<String, Integer> wordFrequency = new HashMap<String, Integer>();
+	
+	
 	// Method to process String array created by readFile()
 	public static HashMap<String, Integer> wordFrequencyCounter(ArrayList<String> words) {
 		
@@ -123,58 +115,37 @@ public class FileInput {
 				wordFrequency.put(words.get(i), 1);
 			}
 			
-			//System.out.println("\nwordFreqyencyCounter() entry: " + i + " -  " + words[i].toString());
-		
-			
 		}
 		
 		return wordFrequency;
 	} 
 	
-	
-	/*
-	 * public static HashMap<String, Integer> sortByValue(HashMap<String, Integer>
-	 * hashMap) {
-	 * 
-	 * // Create a list from elements of Hashmap List<Map.Entry<String, Integer> >
-	 * list = new LinkedList<Map.Entry<String, Integer> > (hashMap.entrySet());
-	 * 
-	 * // Sort the list Collections.sort(list, new Comparator<Map.Entry<String,
-	 * Integer> > () {
-	 * 
-	 * public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer,
-	 * V> o2) {
-	 * 
-	 * return (o1.getValue()).compareTo(o2.getValue()); }
-	 * 
-	 * @Override public int compare(Entry<String, Integer> o1, Entry<String,
-	 * Integer> o2) { // TODO Auto-generated method stub return 0; }
-	 * 
-	 * });
-	 */
+	// Method to call getFileContents() and wordFrequencyCounter() methods
+	private static HashMap<String, Integer> processTextInput() {
+		ArrayList<String> wordsArrayList = getFileContents();
 		
-		
-	/*
-	 * HashMap<String, Integer> tempHashMap = new LinkedHashMap<String, Integer>();
-	 * 
-	 * return tempHashMap; }
-	 */
+		return wordFrequencyCounter(wordsArrayList);
+	}
 	
 	
+	
+	// HashMap to hold all word/frequency (key/value) pairs prior to sorting by frequency (value)
+	public static HashMap<String, Integer> wordFrequencyComplete = new HashMap<String, Integer>();
 
+	// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
+	public static ArrayList<Word> wordsUnsorted = new ArrayList<Word>();
+	
 	public static void main(String[] args) throws IOException {
 		
 		
-		ArrayList<String> wordsArrayList = getFileContents();
-		
-		wordFrequencyComplete = wordFrequencyCounter(wordsArrayList);
-		
-		//Collections.sort(wordFrequencyComplete);
+		wordFrequencyComplete = processTextInput();
 		
 		
-		
-		  for(Map.Entry entry: wordFrequencyComplete.entrySet()) {
-		  System.out.println(entry.getKey() + " " + entry.getValue()); }
+		  
 		 
 	}
+
+
+
+	
 }
