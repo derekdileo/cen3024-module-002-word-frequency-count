@@ -3,7 +3,6 @@ package application;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,26 +71,24 @@ public class FileInput {
 	}
 	
 	
+	/*
+	 * // Method to split file input into array of Strings public static String[]
+	 * readFile() throws IOException {
+	 * 
+	 * // Prepare to read file at filepath FileReader reader = new
+	 * FileReader(filepath);
+	 * 
+	 * // BufferedReader to read file line-by-line buffer = new
+	 * BufferedReader(reader);
+	 * 
+	 * String line = buffer.readLine();
+	 * 
+	 * // Split each line into String array by word boundary \b // This will avoid
+	 * including extra characters/punctuation String[] words = line.split("\\b");
+	 * 
+	 * return words; }
+	 */
 	
-	// Method to split file input into array of Strings
-	public static String[] readFile() throws IOException {
-
-		// Prepare to read file at filepath
-		FileReader reader = new FileReader(filepath);
-
-		// BufferedReader to read file line-by-line
-		buffer = new BufferedReader(reader);
-
-		String line = buffer.readLine();
-
-		// Split each line into String array by word boundary \b
-		// This will avoid including extra characters/punctuation
-		String[] words = line.split("\\b");
-
-		return words;
-
-	}
-
 	
 	// Declare HashMap with word=key, frequency=value
 	public static HashMap<String, Integer> wordFrequency = new HashMap<String, Integer>();
@@ -130,34 +127,34 @@ public class FileInput {
 	}
 	
 	
-	
 	// HashMap to hold all word/frequency (key/value) pairs prior to sorting by frequency (value)
 	public static HashMap<String, Integer> wordFrequencyHashMap = new HashMap<String, Integer>();
 
 	// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
-	private static ArrayList<Word> wordsUnsortedArrayList;
+	private static ArrayList<Word> wordsArrayList;
 
 	
-	
+	// Main method
 	public static void main(String[] args) throws IOException {
-		
 		
 		wordFrequencyHashMap = processTextInput();
 		
-		wordsUnsortedArrayList = new ArrayList<Word>();
+		wordsArrayList = new ArrayList<Word>();
 		
-		wordsUnsortedArrayList = processHashMap(wordFrequencyHashMap);
+		wordsArrayList = processHashMap(wordFrequencyHashMap);
 		
 		// Print before sort
 		System.out.println("\nUnsorted:");
-		System.out.println(wordsUnsortedArrayList.toString());
+		System.out.println(wordsArrayList.toString());
 		
+		// Sort wordsArrayList by frequency
+		Collections.sort(wordsArrayList);
+		Collections.reverse(wordsArrayList);
 		
-		Collections.sort(wordsUnsortedArrayList);
 		
 		// Print after sort
 		System.out.println("\nSorted:");
-		System.out.println(wordsUnsortedArrayList.toString());
+		System.out.println(wordsArrayList.toString());
 		 
 	}
 
