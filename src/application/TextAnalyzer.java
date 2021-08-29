@@ -33,7 +33,6 @@ public class TextAnalyzer {
 			// Counter to track where poem starts and finishes on site
 			int lineCount = 0;
 
-			// Loop until end of poem
 
 			// Loop until end of poem
 			while (sc.hasNextLine()) {
@@ -49,8 +48,7 @@ public class TextAnalyzer {
 
 					String nohtml = line.toString().toLowerCase().replaceAll("\\<.*?>", "");
 
-					// Split string, ignoring all but letters of alphabet and apostrophe (to allow
-					// contractions)
+					// Split string, ignoring all but letters of alphabet and apostrophe (to allow contractions)
 					words = nohtml.split("[^a-zA-Z’]+");
 
 					// Add all to ArrayList<String> wordsList
