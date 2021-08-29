@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class WebScraper {
+public class WebScraperBasic {
 
 	// ArrayList to store individual words pulled from text file
 		public static ArrayList<String> wordsList = new ArrayList<>();
