@@ -16,7 +16,7 @@ public class AppRunner {
 		
 		// Scrape website to create text file
 		try {
-			InputStreamToFile.createFile();
+			WebScraperInputStreamToFile.createFile();
 		} catch (IOException ioe) {
 			System.out.println(ioe.getMessage());
 			ioe.printStackTrace();
@@ -39,7 +39,16 @@ public class AppRunner {
 
 		// Print after sort
 		System.out.println("\nSorted:");
-		System.out.println(wordsArrayListWords.toString());
+		
+		int size = wordsArrayListWords.size();
+		
+		for(int j = 1; j <= size; j++) {
+			
+			System.out.println("#" + j + ": " + wordsArrayListWords);
+			
+		}
+		
+		//System.out.println(wordsArrayListWords.toString());
 		
 		
 	}
