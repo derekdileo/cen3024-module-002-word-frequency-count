@@ -53,11 +53,10 @@ public class TextAnalyzer {
 
 					// Add all to ArrayList<String> wordsList
 					for (String word : words) {
-						// Do not allow white blank white space (frequency = 30 and near top of list)
-						// Works when pulling text from file. Not sure why it's not working here!!
+						// Do not allow white blank white space (frequency = 30 and near top of list) or "mdash"
 						if (word.toString() != "" && word.toString() != " " && !word.toString().contains("mdash")
 								&& !word.toString().contains("	")) {
-							wordsList.add(word.toString().toLowerCase());
+							wordsList.add(word.toString());
 						}
 					}
 				}
