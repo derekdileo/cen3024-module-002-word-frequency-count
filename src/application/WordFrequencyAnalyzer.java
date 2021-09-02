@@ -37,8 +37,7 @@ public class WordFrequencyAnalyzer {
 	// Method to parse HashMap key/value pairs and push to an ArrayList
 	static ArrayList<Word> processHashMap(HashMap<String, Integer> hm) {
 
-		// ArrayList to hold all new Word objects created prior to sorting by frequency
-		// (value)
+		// ArrayList to hold all new Word objects created prior to sorting by frequency (value)
 		ArrayList<Word> wordsUnsorted = new ArrayList<Word>();
 
 		for (@SuppressWarnings("rawtypes")
@@ -55,10 +54,6 @@ public class WordFrequencyAnalyzer {
 			wordsUnsorted.add(word);
 		}
 		return wordsUnsorted;
-	}
-	
-	public static void main(String[] args) {
-
 	}
 
 }

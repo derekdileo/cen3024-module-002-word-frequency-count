@@ -45,7 +45,6 @@ public class WebScraperInputStreamToFile {
             byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
             while ((read = inputStream.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);
-                System.out.println(read);
             }
         }
     }

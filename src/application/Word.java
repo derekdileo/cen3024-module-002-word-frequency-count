@@ -37,9 +37,9 @@ public class Word implements Comparable<Word> {
 		return this.frequency - word.getValue();
 	}
 
-	@Override
-	public String toString() {
-		return "\nWord: " + word + "\t\tFrequency: " + frequency;
+	// toString Method takes index value for final output of values to console
+	public String toString(int index) {
+		return "\n" + (index + 1) + ") Word: " + word + "\t\tFrequency: " + frequency;
 	}
 
 }
